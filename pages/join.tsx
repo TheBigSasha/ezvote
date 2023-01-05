@@ -142,7 +142,7 @@ export default function Host() {
                 type="text"
                 id="peerID"
                 value={peerID}
-                onChange={(e) => setPeerID(e.target.value)}
+                onChange={(e) => setPeerID(e.target.value.replace("http://thebigsasha.github.io/ezvote?poll=",""))}
               />
             </label>
           </div>
