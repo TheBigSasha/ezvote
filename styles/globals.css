@@ -1,9 +1,9 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -104,4 +104,44 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+button {
+  border: 1px solid rgba(var(--foreground-rgb), 0.25);
+  background: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+button:hover {
+  background: rgba(var(--foreground-rgb), 0.1);
+}
+
+input {
+  border: 1px solid rgba(var(--foreground-rgb), 0.25);
+  background: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(var(--foreground-rgb), 0.1);
+  margin: 0.5rem 0;
+}
+
+textarea {
+  border: 1px solid rgba(var(--foreground-rgb), 0.25);
+  background: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: rgba(var(--foreground-rgb), 0.1);
+  height: min-content;
+}
+
+.std-borders {
+  border: 1px solid rgba(var(--foreground-rgb), 0.25);
+  background: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  width: fit-content;
+  display: inline;
+  padding: 0.4rem;
 }

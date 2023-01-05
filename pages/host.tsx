@@ -1,43 +1,46 @@
-import Head from 'next/head'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
-import { useHostMultiPeerSession } from '@thebigsasha/react-peerjs-hooks'
-
-const inter = Inter({ subsets: ['latin'] })
-
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import { useHostMultiPeerSession } from "@thebigsasha/react-peerjs-hooks";
+import { JoinCode } from "../components/JoinCode";
+import { VotableLi } from "./join";
+import { Links } from "../components/Links";
 
 interface Voter {
-    name: string
-    vote?: string
+  name: string;
+  vote?: string;
 }
 
 interface Host {
-    name: string
-    question: string
-    options: string[]
-    showResults?: boolean
+  name: string;
+  question: string;
+  options: string[];
+  showResults?: boolean;
 }
 
 interface StateInterface {
-    member: Voter | Host
+  member: Voter | Host;
 }
 
-
 export default function Host() {
-    const [peerStates, myState, setMyState, myID, numConnections, error] = useHostMultiPeerSession<StateInterface>({member: {name: 'Host', question: 'What is your favorite color?', options: ['Red', 'Blue', 'Green']}})
+  const [peerStates, myState, setMyState, myID, numConnections, error] =
+    useHostMultiPeerSession<StateInterface>({
+      member: {
+        name: "Host",
+        question: "What is your favorite color?",
+        options: ["Red", "Blue", "Green"],
+      },
+    });
 
-    const {name, question, options, showResults} = myState.member as Host
+  const { name, question, options, showResults } = myState.member as Host;
 
-    const votes: {[key: string]: number} = {}
+  const votes: { [key: string]: number } = {};
 
-    for (const peerState of peerStates) {
-        const {vote} = peerState.data.member as Voter
-        if (vote) {
-            votes[vote] = (votes[vote] || 0) + 1
-        }
+  for (const peerState of peerStates) {
+    const { vote } = peerState.data.member as Voter;
+    if (vote) {
+      votes[vote] = (votes[vote] || 0) + 1;
     }
-
+  }
 
   return (
     <>
@@ -49,116 +52,108 @@ export default function Host() {
       </Head>
       <main className={styles.main}>
         <div className={styles.description}>
-     
+          <h1>Host a Poll</h1>
+          <JoinCode code={myID}></JoinCode>
         </div>
 
-        <div>
-        <p>
-            {name} is hosting a poll!
-            </p>
-
-
-            <code className={styles.description}>{myID}</code>
-            <br/>
-
-           <label htmlFor="question">Question: </label>
-              <textarea id="question" value={question} onChange={(e) => {
-                    setMyState({member: {name, question: e.target.value, options}})
-                }}/>
-                <label htmlFor="showResults">Show Results: </label>
-                <input type="checkbox" id="showResults" checked={showResults } onChange={(e) => {
-                    setMyState({member: {name, question, options, showResults: e.target.checked}})
-                }}/>
-                <br/>
-
-
-
-                <ul>
-                    {options.map((option) => {
-                        return <li key={option}><textarea value={option} onChange={(e) => {
-                            const newOptions = options.map((o) => {
-                                if (o === option) {
-                                    return e.target.value
-                                }
-                                return o
-                            })
-                            setMyState({member: {name, question, options: newOptions}})
-                        }}/>
-                        <button onClick={() => {
-                            setMyState({member: {name, question, options: options.filter((o) => o !== option)}})
-                        }}>Remove</button>
-
-                        : {votes[option] || 0} votes
-                        </li>
-                    })}
-                </ul>
-                <button onClick={() => {
-                            setMyState({member: {name, question, options: [...options, '']}})
-                        }
-                        }>Add Option</button>
-           </div>
         <div className={styles.center}>
-           
+          <div>
+            <br />
+
+            <textarea
+              id="question"
+              rows={3}
+              style={{ width: "100%" }}
+              value={question}
+              onChange={(e) => {
+                setMyState({
+                  member: { name, question: e.target.value, options },
+                });
+              }}
+            />
+
+            <br />
+
+            <ul>
+              {options.map((option) => {
+                return (
+                  <VotableLi key={option}>
+                    <input
+                      type="text"
+                      value={option}
+                      onChange={(e) => {
+                        const newOptions = options.map((o) => {
+                          if (o === option) {
+                            return e.target.value;
+                          }
+                          return o;
+                        });
+                        setMyState({
+                          member: { name, question, options: newOptions },
+                        });
+                      }}
+                    />
+                    {votes[option] || 0} votes
+                    <button
+                      onClick={() => {
+                        setMyState({
+                          member: {
+                            name,
+                            question,
+                            options: options.filter((o) => o !== option),
+                          },
+                        });
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </VotableLi>
+                );
+              })}
+
+              <VotableLi>
+                <button
+                  onClick={() => {
+                    setMyState({
+                      member: {
+                        name,
+                        question,
+                        options: [
+                          ...options,
+                          `new options ${Math.random() * 100}`,
+                        ],
+                      },
+                    });
+                  }}
+                >
+                  Add Option
+                </button>
+                <div className={"std-borders"}>
+                  {" "}
+                  <label htmlFor="showResults">Show Results </label>
+                  <input
+                    type="checkbox"
+                    id="showResults"
+                    checked={showResults}
+                    onChange={(e) => {
+                      setMyState({
+                        member: {
+                          name,
+                          question,
+                          options,
+                          showResults: e.target.checked,
+                        },
+                      });
+                    }}
+                  />
+                </div>
+              </VotableLi>
+            </ul>
+          </div>
         </div>
 
-        <div className={styles.grid}>
-          <Link
-            href="/host"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Host <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Host a live poll and invite your friends to vote!
-            </p>
-          </Link>
-
-          <Link
-            href="/join"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Join <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Join a poll and vote on your favorite options!
-            </p>
-          </Link>
-
-          <a
-            href="https://github.com/TheBigSasha/react-peerjs-hooks"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              View Source <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              See how this app was built using TypeScript, React.JS, and PeerJS
-            </p>
-          </a>
-
-          <Link
-            href="/learn-more"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn More <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about how to use EzVote and how to host your own polls!
-            </p>
-          </Link>
-        </div>
+        <Links />
       </main>
     </>
-  )
+  );
 }

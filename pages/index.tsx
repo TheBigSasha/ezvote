@@ -1,10 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
-
-const inter = Inter({ subsets: ['latin'] })
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import Link from "next/link";
+import { Links } from "../components/Links";
 
 export default function Home() {
   return (
@@ -16,74 +13,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-     
-        </div>
+        <div className={styles.description}></div>
 
         <div className={styles.center}>
-        <p>
-          Welcome to EZVote! We are a voting platform that allows you to host a poll and invite anyone to vote.
-         </p>
+          <p>
+            Welcome to EZVote! We are a voting platform that allows you to host
+            a poll and invite anyone to vote.
+          </p>
         </div>
 
-        <div className={styles.grid}>
-          <Link
-            href="/host"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Host <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Host a live poll and invite your friends to vote!
-            </p>
-          </Link>
-
-          <Link
-            href="/join"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Join <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Join a poll and vote on your favorite options!
-            </p>
-          </Link>
-
-          <a
-            href="https://github.com/TheBigSasha/react-peerjs-hooks"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              View Source <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              See how this app was built using TypeScript, React.JS, and PeerJS
-            </p>
-          </a>
-
-          <Link
-            href="/learn-more"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn More <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about how to use EzVote and how to host your own polls!
-            </p>
-          </Link>
-        </div>
+        <Links />
       </main>
     </>
-  )
+  );
 }
