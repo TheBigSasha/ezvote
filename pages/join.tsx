@@ -4,6 +4,7 @@ import { useJoinMultiPeerSession } from "@thebigsasha/react-peerjs-hooks";
 import { useState } from "react";
 import styled from "styled-components";
 import { Links } from "../components/Links";
+import { FaVoteYea } from "react-icons/fa";
 
 interface Voter {
   name: string;
@@ -98,6 +99,11 @@ export default function Host() {
             return (
               <VotedLi key={option}>
                 {option} {results}
+                <button
+                disabled
+              >
+                <FaVoteYea/>
+              </button>
               </VotedLi>
             );
 
@@ -109,7 +115,7 @@ export default function Host() {
                   setMyState({ member: { name: "Voter", vote: option } });
                 }}
               >
-                Vote
+                <FaVoteYea/>
               </button>
             </VotableLi>
           );
