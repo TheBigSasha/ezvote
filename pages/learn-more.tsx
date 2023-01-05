@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>EZPoll</title>
+        <title>EZPoll | About</title>
         <meta name="description" content="Stupid simple polls" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />

@@ -10,7 +10,6 @@ export const Links: React.FC<{}> = () => {
       <Link
         href="/host"
         className={styles.card}
-        target="_blank"
         rel="noopener noreferrer"
       >
         <h2 className={inter.className}>
@@ -24,7 +23,6 @@ export const Links: React.FC<{}> = () => {
       <Link
         href="/join"
         className={styles.card}
-        target="_blank"
         rel="noopener noreferrer"
       >
         <h2 className={inter.className}>
@@ -38,7 +36,6 @@ export const Links: React.FC<{}> = () => {
       <a
         href="https://github.com/TheBigSasha/react-peerjs-hooks"
         className={styles.card}
-        target="_blank"
         rel="noopener noreferrer"
       >
         <h2 className={inter.className}>
@@ -52,7 +49,6 @@ export const Links: React.FC<{}> = () => {
       <Link
         href="/learn-more"
         className={styles.card}
-        target="_blank"
         rel="noopener noreferrer"
       >
         <h2 className={inter.className}>
