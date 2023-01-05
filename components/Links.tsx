@@ -34,7 +34,7 @@ export const Links: React.FC<{}> = () => {
       </Link>
 
       <a
-        href="https://github.com/TheBigSasha/react-peerjs-hooks"
+        href="https://github.com/TheBigSasha/ezvote"
         className={styles.card}
         rel="noopener noreferrer"
       >
