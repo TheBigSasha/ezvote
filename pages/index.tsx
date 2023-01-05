@@ -153,7 +153,7 @@ export default function Index() {
                         question,
                         options: [
                           ...options,
-                          `new options ${Math.random() * 100}`,
+                          `Option ${options.length + 1}`,
                         ],
                       },
                     });
