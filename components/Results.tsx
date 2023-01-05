@@ -1,4 +1,4 @@
-import { Bar, BarChart, Tooltip, TooltipProps, XAxis } from "recharts";
+import { Bar, BarChart, ResponsiveContainer, Tooltip, TooltipProps, XAxis } from "recharts";
 import {
   NameType,
   ValueType,
@@ -26,9 +26,19 @@ interface ResultsProps {
 }
 const Results: React.FC<ResultsProps> = ({ chartData }) => {
   return (
+    <div style={
+        {
+             minHeight:"200px",
+                minWidth:"200px",
+                maxHeight:"300px",
+                maxWidth:"600px",
+                margin:"auto",
+                width: "100%",
+                height: "100%",
+        }
+    }>
+    <ResponsiveContainer height={300}>
     <BarChart
-      width={600}
-      height={300}
       desc="A bar chart of the results"
       data={chartData}
       margin={{
@@ -43,6 +53,8 @@ const Results: React.FC<ResultsProps> = ({ chartData }) => {
       <Tooltip content={<CustomTooltip />} />
       <Bar dataKey="votes" fill="rgba(130,130,200,0.7)" />
     </BarChart>
+    </ResponsiveContainer>
+    </div>
   );
 };
 
