@@ -18,7 +18,7 @@ export const JoinCode = ({ code }: { code: string }) => {
         style={{ cursor: "pointer" }}
         onClick={() => {
           navigator.clipboard.writeText(
-            `http://thebigsasha.github.io/ezvote?poll=${code}`
+            `http://thebigsasha.github.io/ezvote/join?poll=${code}`
           );
         }}
       />
