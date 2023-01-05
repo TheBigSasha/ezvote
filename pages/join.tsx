@@ -133,17 +133,17 @@ export default function Host() {
         <div className={styles.description}>
           <h1>Join a Poll</h1>
           <div>
-            <label
+            <p
               className={"std-borders"}
               style={{ padding: "1rem" }}
-              htmlFor="peerID"
             >
               Join Code
               <input
-                style={{ marginInlineStart: 8 }}
+                style={{ marginInlineStart: 8, width: "130px" }}
                 type="text"
                 id="peerID"
                 value={peerID}
+                placeholder={"egtc-4ve7-55gv"}
                 onChange={(e) =>
                   setPeerID(
                     e.target.value
@@ -153,7 +153,7 @@ export default function Host() {
                   )
                 }
               />
-            </label>
+            </p>
           </div>
         </div>
 
