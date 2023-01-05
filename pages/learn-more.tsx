@@ -1,7 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
-import { Links } from "../components/Links";
+import { Links, inter } from "../components/Links";
 
 export default function Home() {
   return (
@@ -16,7 +16,7 @@ export default function Home() {
         <div className={styles.description}></div>
 
         <div className={styles.center}>
-          <p>
+          <p className={inter.className}>
             Welcome to EZVote! We are a voting platform that allows you to host
             a poll and invite anyone to vote.
           </p>
