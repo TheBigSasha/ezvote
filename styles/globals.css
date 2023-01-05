@@ -116,6 +116,14 @@ button {
 
 button:hover {
   background: rgba(var(--foreground-rgb), 0.1);
+  box-shadow: 0 0 5px 2px rgba(var(--foreground-rgb), 0.25);
+  transition: 0.2s;
+}
+
+.buttonable:hover {
+  box-shadow: 0 0 5px 2px rgba(var(--foreground-rgb), 0.25);
+  background: rgba(var(--foreground-rgb), 0.1);
+  transition: 0.2s;
 }
 
 input {
@@ -127,6 +135,13 @@ input {
   margin: 0.5rem 0;
 }
 
+input:active, input:focus, textarea:focus, button:active {
+  background-color: rgba(var(--foreground-rgb), 0.2);
+  border: 1px solid rgba(var(--foreground-rgb), 0.5);
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(var(--foreground-rgb), 0.25);
+}
+
 textarea {
   border: 1px solid rgba(var(--foreground-rgb), 0.25);
   background: none;
@@ -134,6 +149,10 @@ textarea {
   padding: 0.5rem 1rem;
   background-color: rgba(var(--foreground-rgb), 0.1);
   height: min-content;
+}
+
+label {
+  font-size: 0.7rem;
 }
 
 .std-borders {
@@ -144,4 +163,12 @@ textarea {
   width: fit-content;
   display: inline;
   padding: 0.4rem;
+}
+
+.button-on {
+  background: rgba(var(--foreground-rgb), 0.1);
+}
+
+ul {
+  margin-left: 0;
 }

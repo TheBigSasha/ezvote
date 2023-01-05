@@ -3,7 +3,7 @@ import styles from "../styles/Home.module.css";
 import { useJoinMultiPeerSession } from "@thebigsasha/react-peerjs-hooks";
 import { useState } from "react";
 import styled from "styled-components";
-import { Links } from "../components/Links";
+import { Links, inter } from "../components/Links";
 import { FaCheck, FaVoteYea } from "react-icons/fa";
 
 interface Voter {
@@ -87,8 +87,8 @@ export default function Host() {
   }
 
   const questionView = (
-    <div>
-      <strong>{question}</strong>
+    <div className={inter.className}>
+      <strong >{question}</strong>
       <ul>
         {options.map((option) => {
           if (!votes[option]) votes[option] = 0;
@@ -138,7 +138,7 @@ export default function Host() {
               style={{ padding: "1rem" }}
               htmlFor="peerID"
             >
-              Poll ID
+              Join Code 
               <input
                 style={{ marginInlineStart: 8 }}
                 type="text"
@@ -161,6 +161,12 @@ export default function Host() {
 
         <div className={styles.center}>
           {peerStates.length > 0 && questionView}
+            {peerStates.length === 0 && (
+                <h2 className={inter.className}>
+                    Enter a join code to vote in a poll
+                </h2>
+                )}
+            
         </div>
 
         <Links />

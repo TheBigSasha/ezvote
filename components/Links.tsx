@@ -2,12 +2,12 @@ import Link from "next/link";
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
 
-const inter = Inter({ subsets: ["latin"] });
+export const inter = Inter({ subsets: ["latin"] });
 
 export const Links: React.FC<{}> = () => {
   return (
     <div className={styles.grid}>
-      <Link href="/host" className={styles.card} rel="noopener noreferrer">
+      <Link href="/" className={styles.card} rel="noopener noreferrer">
         <h2 className={inter.className}>
           Host <span>-&gt;</span>
         </h2>

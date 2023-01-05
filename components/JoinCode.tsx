@@ -16,6 +16,7 @@ export const JoinCode = ({ code }: { code: string }) => {
       <CodeText style={{ marginLeft: 6, marginRight: 6 }}>{code}</CodeText>
       <FaCopy
         style={{ cursor: "pointer" }}
+        className="buttonable"
         onClick={() => {
           navigator.clipboard.writeText(
             `http://thebigsasha.github.io/ezvote/join?poll=${code}`
