@@ -40,7 +40,16 @@ interface StateInterface {
 }
 
 export default function Host() {
-  const [peerID, setPeerID] = useState("");
+
+  let initPeer = "";
+  if (typeof window !== "undefined") {
+    // arg from ?poll=
+    const urlParams = new URLSearchParams(window.location.search);
+    initPeer = urlParams.get("poll") || "";
+    }
+
+
+  const [peerID, setPeerID] = useState(initPeer);
 
   const [peerStates, myState, setMyState, numConnections, error] =
     useJoinMultiPeerSession<StateInterface>(peerID, {
@@ -120,13 +129,23 @@ export default function Host() {
       </Head>
       <main className={styles.main}>
         <div className={styles.description}>
-          <label htmlFor="peerID">Poll ID</label>
-          <input
-            type="text"
-            id="peerID"
-            value={peerID}
-            onChange={(e) => setPeerID(e.target.value)}
-          />
+          <h1>Join a Poll</h1>
+          <div>
+            <label
+              className={"std-borders"}
+              style={{ padding: "1rem" }}
+              htmlFor="peerID"
+            >
+              Poll ID
+              <input
+                style={{ marginInlineStart: 8 }}
+                type="text"
+                id="peerID"
+                value={peerID}
+                onChange={(e) => setPeerID(e.target.value)}
+              />
+            </label>
+          </div>
         </div>
 
         {error && <p>{error}</p>}
