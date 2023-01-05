@@ -99,11 +99,9 @@ export default function Host() {
             return (
               <VotedLi key={option}>
                 {option} {results}
-                <button
-                disabled
-              >
-                <FaVoteYea/>
-              </button>
+                <button disabled>
+                  <FaVoteYea />
+                </button>
               </VotedLi>
             );
 
@@ -115,7 +113,7 @@ export default function Host() {
                   setMyState({ member: { name: "Voter", vote: option } });
                 }}
               >
-                <FaVoteYea/>
+                <FaVoteYea />
               </button>
             </VotableLi>
           );
@@ -148,10 +146,10 @@ export default function Host() {
                 value={peerID}
                 onChange={(e) =>
                   setPeerID(
-                    e.target.value.replace(
-                      "http://thebigsasha.github.io/ezvote?poll=",
-                      ""
-                    )
+                    e.target.value
+                      .replace("http://thebigsasha.github.io/ezvote", "")
+                      .replace("/join", "")
+                      .replace("?poll=", "")
                   )
                 }
               />
