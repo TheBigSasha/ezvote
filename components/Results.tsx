@@ -33,7 +33,7 @@ const Results: React.FC<ResultsProps> = ({ chartData }) => {
                 maxHeight:"300px",
                 maxWidth:"600px",
                 margin:"auto",
-                width: "100%",
+                width: "80vw",
                 height: "100%",
         }
     }>
