@@ -186,5 +186,3 @@ export default function Index() {
     </>
   );
 }
-
-//TODO graph votes using chart.js
