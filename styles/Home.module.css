@@ -268,6 +268,16 @@
   filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
 }
 
+@media(prefers-color-scheme: light) {
+  .center::after {
+    background: none;
+  }
+
+  .center::before {
+    background: none;
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(360deg);
