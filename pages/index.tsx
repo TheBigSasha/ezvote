@@ -5,6 +5,9 @@ import { JoinCode } from "../components/JoinCode";
 import { VotableLi } from "./join";
 import { Links, inter } from "../components/Links";
 import { ToggleButton } from "../components/ToggleButton";
+import React, { Suspense } from "react";
+
+const Results = React.lazy(() => import("../components/Results"));
 
 interface Voter {
   name: string;
@@ -51,6 +54,13 @@ export default function Index() {
   // make all options unique
   const options = [...new Set(rawOptions)];
 
+  const chartData = options.map((option) => ({
+    name: option,
+    votes: votes[option] || 0,
+  }));
+
+  const hasResults = chartData.some((data) => data.votes > 0);
+
   return (
     <>
       <Head>
@@ -67,6 +77,14 @@ export default function Index() {
 
         <div className={styles.center}>
           <div>
+            {hasResults && (
+              <Suspense
+                fallback={<p className={inter.className}>Loading Chart </p>}
+              >
+                {" "}
+                <Results chartData={chartData} />
+              </Suspense>
+            )}
             <br />
 
             <textarea
@@ -102,7 +120,7 @@ export default function Index() {
                         });
                       }}
                     />
-                  
+
                     <button
                       onClick={() => {
                         setMyState({
@@ -116,8 +134,11 @@ export default function Index() {
                     >
                       Remove
                     </button>
-                    <p className={inter.className} style={{display: "inline"}}>
-                    {votes[option] || 0} votes
+                    <p
+                      className={inter.className}
+                      style={{ display: "inline" }}
+                    >
+                      {votes[option] || 0} votes
                     </p>
                   </VotableLi>
                 );
@@ -140,16 +161,19 @@ export default function Index() {
                 >
                   Add Option
                 </button>
-                <ToggleButton on={showResults || false} onClick={() => {
-                  setMyState({
-                    member: {
-                      name,
-                      question,
-                      options,
-                      showResults: !showResults
-                    }
-                  })
-                }} >
+                <ToggleButton
+                  on={showResults || false}
+                  onClick={() => {
+                    setMyState({
+                      member: {
+                        name,
+                        question,
+                        options,
+                        showResults: !showResults,
+                      },
+                    });
+                  }}
+                >
                   {showResults ? "Hide Results" : "Publish Results"}
                 </ToggleButton>
               </VotableLi>

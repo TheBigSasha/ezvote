@@ -135,7 +135,10 @@ input {
   margin: 0.5rem 0;
 }
 
-input:active, input:focus, textarea:focus, button:active {
+input:active,
+input:focus,
+textarea:focus,
+button:active {
   background-color: rgba(var(--foreground-rgb), 0.2);
   border: 1px solid rgba(var(--foreground-rgb), 0.5);
   outline: none;
@@ -171,4 +174,25 @@ label {
 
 ul {
   margin-left: 0;
+}
+
+.recharts-cartesian-axis-tick,
+.recharts-text {
+  font-family: Inter, Roboto, sans-serif;
+  color: rgba(var(--foreground-rgb), 0.8);
+}
+
+.recharts-cartesian-axis-tick-value tspan {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.bg-card {
+  background: rgb(var(--tile-end-rgb));
+  border: 1px solid rgb(var(--card-border-rgb));
+  border-radius: 0.5rem;
+  padding: 1rem;
 }

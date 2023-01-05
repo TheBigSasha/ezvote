@@ -88,7 +88,7 @@ export default function Host() {
 
   const questionView = (
     <div className={inter.className}>
-      <strong >{question}</strong>
+      <strong>{question}</strong>
       <ul>
         {options.map((option) => {
           if (!votes[option]) votes[option] = 0;
@@ -138,7 +138,7 @@ export default function Host() {
               style={{ padding: "1rem" }}
               htmlFor="peerID"
             >
-              Join Code 
+              Join Code
               <input
                 style={{ marginInlineStart: 8 }}
                 type="text"
@@ -161,12 +161,11 @@ export default function Host() {
 
         <div className={styles.center}>
           {peerStates.length > 0 && questionView}
-            {peerStates.length === 0 && (
-                <h2 className={inter.className}>
-                    Enter a join code to vote in a poll
-                </h2>
-                )}
-            
+          {peerStates.length === 0 && (
+            <h2 className={inter.className}>
+              Enter a join code to vote in a poll
+            </h2>
+          )}
         </div>
 
         <Links />
