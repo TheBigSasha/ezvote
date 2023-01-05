@@ -21,45 +21,6 @@ interface StateInterface {
   member: Voter | Host;
 }
 
-const OptionsForm: React.FC<{options: string[], setMyState: (state: StateInterface) => void, votes: {[key: string]: number}, question: string, name: string
-}> = ({options, setMyState, votes, question, name}) => {
-    return    <>     {options.map((option) => {
-        return (
-          <VotableLi key={option}>
-            <input
-              type="text"
-              value={option}
-              onChange={(e) => {
-                const newOptions = options.map((o) => {
-                  if (o === option) {
-                    return e.target.value;
-                  }
-                  return o;
-                });
-                setMyState({
-                  member: { name, question, options: newOptions },
-                });
-              }}
-            />
-            {votes[option] || 0} votes
-            <button
-              onClick={() => {
-                setMyState({
-                  member: {
-                    name,
-                    question,
-                    options: options.filter((o) => o !== option),
-                  },
-                });
-              }}
-            >
-              Remove
-            </button>
-          </VotableLi>
-        );
-      })}</> 
-    };
-
 export default function Host() {
   const [peerStates, myState, setMyState, myID, numConnections, error] =
     useHostMultiPeerSession<StateInterface>({
@@ -70,8 +31,12 @@ export default function Host() {
       },
     });
 
-  const { name, question, options, showResults } = myState.member as Host;
-
+  const {
+    name,
+    question,
+    options: rawOptions,
+    showResults,
+  } = myState.member as Host;
 
   const votes: { [key: string]: number } = {};
 
@@ -82,6 +47,8 @@ export default function Host() {
     }
   }
 
+  // make all options unique
+  const options = [...new Set(rawOptions)];
 
   return (
     <>
@@ -116,7 +83,42 @@ export default function Host() {
             <br />
 
             <ul>
-            <OptionsForm options={options} setMyState={setMyState} votes={votes} question={question} name={name} />
+              {options.map((option, index) => {
+                return (
+                  <VotableLi key={option.substring(0, 1) + index}>
+                    <input
+                      type="text"
+                      value={option}
+                      onChange={(e) => {
+                        const newOptions = options.map((o) => {
+                          if (o === option) {
+                            return e.target.value;
+                          }
+                          return o;
+                        });
+                        setMyState({
+                          member: { name, question, options: newOptions },
+                        });
+                      }}
+                    />
+                    {votes[option] || 0} votes
+                    <button
+                      onClick={() => {
+                        setMyState({
+                          member: {
+                            name,
+                            question,
+                            options: options.filter((o) => o !== option),
+                          },
+                        });
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </VotableLi>
+                );
+              })}
+
               <VotableLi>
                 <button
                   onClick={() => {

@@ -40,14 +40,12 @@ interface StateInterface {
 }
 
 export default function Host() {
-
   let initPeer = "";
   if (typeof window !== "undefined") {
     // arg from ?poll=
     const urlParams = new URLSearchParams(window.location.search);
     initPeer = urlParams.get("poll") || "";
-    }
-
+  }
 
   const [peerID, setPeerID] = useState(initPeer);
 
@@ -142,7 +140,14 @@ export default function Host() {
                 type="text"
                 id="peerID"
                 value={peerID}
-                onChange={(e) => setPeerID(e.target.value.replace("http://thebigsasha.github.io/ezvote?poll=",""))}
+                onChange={(e) =>
+                  setPeerID(
+                    e.target.value.replace(
+                      "http://thebigsasha.github.io/ezvote?poll=",
+                      ""
+                    )
+                  )
+                }
               />
             </label>
           </div>
