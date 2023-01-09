@@ -36,10 +36,6 @@ export const VotedLi = styled(VotableLi)`
   border: 1px solid rgba(130, 130, 255, 0.8);
 `;
 
-interface StateInterface {
-  member: Voter | Host;
-}
-
 export default function Host() {
   let initPeer = "";
   if (typeof window !== "undefined") {
@@ -50,40 +46,30 @@ export default function Host() {
 
   const [peerID, setPeerID] = useState(initPeer);
 
-  const [peerStates, myState, setMyState, numConnections, error] =
-    useJoinMultiPeerSession<StateInterface>(peerID, {
-      member: { name: "Voter" },
+  const [peerStates, hostState, myState, setMyState, _numConnections, error] =
+    useJoinMultiPeerSession<Host, Voter>(peerID, {
+      name: "Voter",
     });
 
-  const hostState = peerStates.find(
-    (peerState) =>
-      peerState.data.member && (peerState.data.member as Host).question
-  ) || {
-    data: {
-      member: {
-        name: "Host",
-        question: "What is your favorite color?",
-        options: ["Red", "Blue", "Green"],
-      },
-    },
-    id: "",
+  const { name, question, options, showResults } = hostState || {
+    name: "",
+    question: "loading...",
+    options: [],
+    showResults: false,
   };
-
-  const { name, question, options, showResults } = hostState?.data
-    .member as Host;
 
   const votes: { [key: string]: number } = {};
 
   for (const peerState of peerStates) {
-    const { vote } = peerState.data.member as Voter;
+    const { vote } = peerState.data as Voter;
     if (vote) {
       votes[vote] = (votes[vote] || 0) + 1;
     }
   }
 
-  if (myState.member && (myState.member as Voter).vote) {
-    votes[(myState.member as Voter).vote || ""] =
-      (votes[(myState.member as Voter).vote || ""] || 0) + 1;
+  if (myState.vote) {
+    votes[myState.vote || ""] =
+      (votes[myState.vote || ""] || 0) + 1;
   }
 
   const questionView = (
@@ -95,7 +81,7 @@ export default function Host() {
 
           const results = showResults ? `(${votes[option]})` : "";
 
-          if (myState.member && (myState.member as Voter).vote === option)
+          if (myState.vote === option)
             return (
               <VotedLi key={option}>
                 {option} {results}
@@ -110,7 +96,7 @@ export default function Host() {
               {option} {results}
               <button
                 onClick={() => {
-                  setMyState({ member: { name: "Voter", vote: option } });
+                  setMyState({ name: "Voter", vote: option });
                 }}
               >
                 <FaVoteYea />

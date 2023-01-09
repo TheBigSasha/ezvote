@@ -21,18 +21,13 @@ interface Host {
   showResults?: boolean;
 }
 
-interface StateInterface {
-  member: Voter | Host;
-}
 
 export default function Index() {
-  const [peerStates, myState, setMyState, myID, numConnections, error] =
-    useHostMultiPeerSession<StateInterface>({
-      member: {
+  const [peerStates, myState, setMyState, myID, numConnections, forceNewID, error] =
+    useHostMultiPeerSession<Host, Voter>({
         name: "Host",
         question: "What is your favorite color?",
         options: ["Red", "Blue", "Green"],
-      },
     });
 
   const {
@@ -40,12 +35,12 @@ export default function Index() {
     question,
     options: rawOptions,
     showResults,
-  } = myState.member as Host;
+  } = myState;
 
   const votes: { [key: string]: number } = {};
 
   for (const peerState of peerStates) {
-    const { vote } = peerState.data.member as Voter;
+    const { vote } = peerState.data;
     if (vote) {
       votes[vote] = (votes[vote] || 0) + 1;
     }
@@ -94,7 +89,7 @@ export default function Index() {
               value={question}
               onChange={(e) => {
                 setMyState({
-                  member: { name, question: e.target.value, options },
+                  name, question: e.target.value, options 
                 });
               }}
             />
@@ -116,7 +111,7 @@ export default function Index() {
                           return o;
                         });
                         setMyState({
-                          member: { name, question, options: newOptions },
+                          name, question, options: newOptions 
                         });
                       }}
                     />
@@ -124,11 +119,11 @@ export default function Index() {
                     <button
                       onClick={() => {
                         setMyState({
-                          member: {
+                    
                             name,
                             question,
                             options: options.filter((o) => o !== option),
-                          },
+                    
                         });
                       }}
                     >
@@ -148,11 +143,9 @@ export default function Index() {
                 <button
                   onClick={() => {
                     setMyState({
-                      member: {
                         name,
                         question,
                         options: [...options, `Option ${options.length + 1}`],
-                      },
                     });
                   }}
                 >
@@ -162,12 +155,10 @@ export default function Index() {
                   on={showResults || false}
                   onClick={() => {
                     setMyState({
-                      member: {
                         name,
                         question,
                         options,
                         showResults: !showResults,
-                      },
                     });
                   }}
                 >
