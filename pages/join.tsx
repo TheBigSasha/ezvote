@@ -46,7 +46,7 @@ export default function Host() {
 
   const [peerID, setPeerID] = useState(initPeer);
 
-  const [peerStates, hostState, myState, setMyState, _numConnections, error] =
+  const [peerStates, hostState, myState, setMyState, _myID, _numConnections, error] =
     useJoinMultiPeerSession<Host, Voter>(peerID, {
       name: "Voter",
     });
