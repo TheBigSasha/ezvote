@@ -133,10 +133,7 @@ export default function Host() {
         <div className={styles.description}>
           <h1>Join a Poll</h1>
           <div>
-            <p
-              className={"std-borders"}
-              style={{ padding: "1rem" }}
-            >
+            <p className={"std-borders"} style={{ padding: "1rem" }}>
               Join Code
               <input
                 style={{ marginInlineStart: 8, width: "130px" }}

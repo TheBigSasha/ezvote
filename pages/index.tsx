@@ -151,10 +151,7 @@ export default function Index() {
                       member: {
                         name,
                         question,
-                        options: [
-                          ...options,
-                          `Option ${options.length + 1}`,
-                        ],
+                        options: [...options, `Option ${options.length + 1}`],
                       },
                     });
                   }}

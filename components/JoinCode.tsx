@@ -10,36 +10,43 @@ const CodeText = styled.code`
 `;
 
 export const JoinCode = ({ code }: { code: string }) => {
-    const [showQR, setShowQR] = useState(false);
+  const [showQR, setShowQR] = useState(false);
   if (code === undefined || code === null || code === "")
     return <p>loading join code...</p>;
   return (
-    <div style={{
+    <div
+      style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-    }}>
-    <p>
-      Join Code
-      <CodeText style={{ marginLeft: 6, marginRight: 6 }}>{code}</CodeText>
-      <FaCopy
-        style={{ cursor: "pointer" }}
-        className="buttonable"
-        onClick={() => {
-          navigator.clipboard.writeText(
-            `http://thebigsasha.github.io/ezvote/join?poll=${code}`
-          );
-        }}
-      />
-      <FaQrcode style={{ cursor: "pointer", marginInlineStart: 10 }} className="buttonable" 
-        onClick={() => {
+      }}
+    >
+      <p>
+        Join Code
+        <CodeText style={{ marginLeft: 6, marginRight: 6 }}>{code}</CodeText>
+        <FaCopy
+          style={{ cursor: "pointer" }}
+          className="buttonable"
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `http://thebigsasha.github.io/ezvote/join?poll=${code}`
+            );
+          }}
+        />
+        <FaQrcode
+          style={{ cursor: "pointer", marginInlineStart: 10 }}
+          className="buttonable"
+          onClick={() => {
             setShowQR(!showQR);
-        }}
-
-      />
-    </p>
-    {showQR && <QRCodeSVG value={`http://thebigsasha.github.io/ezvote/join?poll=${code}`} />}
+          }}
+        />
+      </p>
+      {showQR && (
+        <QRCodeSVG
+          value={`http://thebigsasha.github.io/ezvote/join?poll=${code}`}
+        />
+      )}
     </div>
   );
 };

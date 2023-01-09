@@ -268,7 +268,7 @@
   filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
 }
 
-@media(prefers-color-scheme: light) {
+@media (prefers-color-scheme: light) {
   .center::after {
     background: none;
   }
