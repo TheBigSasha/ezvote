@@ -72,19 +72,14 @@ export default function Index() {
         </div>
 
         <div className={styles.center}>
-          <p>
-            {JSON.stringify(peerStates)}
-          </p>
           <div>
             {hasResults && (
               <Suspense
                 fallback={<p className={inter.className}>Loading Chart </p>}
               >
-                {" "}
                 <Results chartData={chartData} />
               </Suspense>
             )}
-            <p>{numConnections} people active now.</p>
             <br />
 
             <textarea

@@ -51,9 +51,6 @@ export default function Host() {
       name: "Voter",
     });
 
-
-  
-
   const votes: { [key: string]: number } = {};
 
   for (const peerState of peerStates) {
@@ -112,11 +109,6 @@ export default function Host() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <p>
-          {JSON.stringify(
-            [peerStates, hostState, myState, setMyState, _numConnections, error]
-          )}
-        </p>
         <div className={styles.description}>
           <h1>Join a Poll</h1>
           <div>
