@@ -51,12 +51,8 @@ export default function Host() {
       name: "Voter",
     });
 
-  const { name, question, options, showResults } = hostState || {
-    name: "",
-    question: "loading...",
-    options: [],
-    showResults: false,
-  };
+
+  
 
   const votes: { [key: string]: number } = {};
 
@@ -68,18 +64,17 @@ export default function Host() {
   }
 
   if (myState.vote) {
-    votes[myState.vote || ""] =
-      (votes[myState.vote || ""] || 0) + 1;
+    votes[myState.vote || ""] = (votes[myState.vote || ""] || 0) + 1;
   }
 
   const questionView = (
     <div className={inter.className}>
-      <strong>{question}</strong>
+      <strong>{hostState?.question}</strong>
       <ul>
-        {options.map((option) => {
+        {hostState?.options.map((option) => {
           if (!votes[option]) votes[option] = 0;
 
-          const results = showResults ? `(${votes[option]})` : "";
+          const results = hostState.showResults ? `(${votes[option]})` : "";
 
           if (myState.vote === option)
             return (
@@ -96,7 +91,7 @@ export default function Host() {
               {option} {results}
               <button
                 onClick={() => {
-                  setMyState({ name: "Voter", vote: option });
+                  setMyState({ ...myState, vote: option });
                 }}
               >
                 <FaVoteYea />
@@ -107,6 +102,7 @@ export default function Host() {
       </ul>
     </div>
   );
+
   return (
     <>
       <Head>
@@ -116,6 +112,11 @@ export default function Host() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <p>
+          {JSON.stringify(
+            [peerStates, hostState, myState, setMyState, _numConnections, error]
+          )}
+        </p>
         <div className={styles.description}>
           <h1>Join a Poll</h1>
           <div>
@@ -143,14 +144,13 @@ export default function Host() {
         {error && <p>{error}</p>}
 
         <div className={styles.center}>
-          {peerStates.length > 0 && questionView}
-          {peerStates.length === 0 && (
+          {hostState && questionView}
+          {!hostState && (
             <h2 className={inter.className}>
               Enter a join code to vote in a poll
             </h2>
           )}
         </div>
-
         <Links />
       </main>
     </>

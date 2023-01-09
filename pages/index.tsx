@@ -21,21 +21,22 @@ interface Host {
   showResults?: boolean;
 }
 
-
 export default function Index() {
-  const [peerStates, myState, setMyState, myID, numConnections, forceNewID, error] =
-    useHostMultiPeerSession<Host, Voter>({
-        name: "Host",
-        question: "What is your favorite color?",
-        options: ["Red", "Blue", "Green"],
-    });
+  const [
+    peerStates,
+    myState,
+    setMyState,
+    myID,
+    numConnections,
+    forceNewID,
+    error,
+  ] = useHostMultiPeerSession<Host, Voter>({
+    name: "Host",
+    question: "What is your favorite color?",
+    options: ["Red", "Blue", "Green"],
+  });
 
-  const {
-    name,
-    question,
-    options: rawOptions,
-    showResults,
-  } = myState;
+  const { name, question, options: rawOptions, showResults } = myState;
 
   const votes: { [key: string]: number } = {};
 
@@ -67,10 +68,13 @@ export default function Index() {
       <main className={styles.main}>
         <div className={styles.description}>
           <h1>Host a Poll</h1>
-          <JoinCode code={myID}></JoinCode>
+          <JoinCode code={myID} onRequestNewID={forceNewID}></JoinCode>
         </div>
 
         <div className={styles.center}>
+          <p>
+            {JSON.stringify(peerStates)}
+          </p>
           <div>
             {hasResults && (
               <Suspense
@@ -80,6 +84,7 @@ export default function Index() {
                 <Results chartData={chartData} />
               </Suspense>
             )}
+            <p>{numConnections} people active now.</p>
             <br />
 
             <textarea
@@ -89,7 +94,9 @@ export default function Index() {
               value={question}
               onChange={(e) => {
                 setMyState({
-                  name, question: e.target.value, options 
+                  name,
+                  question: e.target.value,
+                  options,
                 });
               }}
             />
@@ -111,7 +118,9 @@ export default function Index() {
                           return o;
                         });
                         setMyState({
-                          name, question, options: newOptions 
+                          name,
+                          question,
+                          options: newOptions,
                         });
                       }}
                     />
@@ -119,11 +128,9 @@ export default function Index() {
                     <button
                       onClick={() => {
                         setMyState({
-                    
-                            name,
-                            question,
-                            options: options.filter((o) => o !== option),
-                    
+                          name,
+                          question,
+                          options: options.filter((o) => o !== option),
                         });
                       }}
                     >
@@ -143,9 +150,9 @@ export default function Index() {
                 <button
                   onClick={() => {
                     setMyState({
-                        name,
-                        question,
-                        options: [...options, `Option ${options.length + 1}`],
+                      name,
+                      question,
+                      options: [...options, `Option ${options.length + 1}`],
                     });
                   }}
                 >
@@ -155,10 +162,10 @@ export default function Index() {
                   on={showResults || false}
                   onClick={() => {
                     setMyState({
-                        name,
-                        question,
-                        options,
-                        showResults: !showResults,
+                      name,
+                      question,
+                      options,
+                      showResults: !showResults,
                     });
                   }}
                 >

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FaCopy, FaQrcode } from "react-icons/fa";
+import { IoReloadCircle } from "react-icons/io5";
 import { QRCodeSVG } from "qrcode.react";
 import { useState } from "react";
 
@@ -9,7 +10,13 @@ const CodeText = styled.code`
   background-color: rgba(130, 130, 130, 0.3);
 `;
 
-export const JoinCode = ({ code }: { code: string }) => {
+export const JoinCode = ({
+  code,
+  onRequestNewID,
+}: {
+  code: string;
+  onRequestNewID: () => void;
+}) => {
   const [showQR, setShowQR] = useState(false);
   if (code === undefined || code === null || code === "")
     return <p>loading join code...</p>;
@@ -41,6 +48,11 @@ export const JoinCode = ({ code }: { code: string }) => {
             setShowQR(!showQR);
           }}
         />
+        <IoReloadCircle
+          style={{ cursor: "pointer", marginInlineStart: 10 }}
+          className="buttonable"
+          onClick={onRequestNewID}
+        ></IoReloadCircle>
       </p>
       {showQR && (
         <QRCodeSVG
